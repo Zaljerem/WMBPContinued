@@ -1,0 +1,11 @@
+1.0.0 - 6/10/2024 - updated from 1.4 to 1.5
+
+1.0.1 - 11/15/2024 - added explicit incompatibleWith for Regrowth (Core)
+
+1.0.1 - 8/8/2025 - updated to 1.6
+
+1.0.2 - 8/8/2025 - more tweaks
+
+1.0.3 - 8/9/2025 - added Odyssey support
+
+1.0.4 - 8/10/2025 - tweaks to Odyssey textures

@@ -166,9 +166,9 @@
 		<value>
 			<li Class="BiomesKit.BiomesKitControls">
 				<uniqueHills>true</uniqueHills>
-				<snowpilesBelow>-15</snowpilesBelow>
-				<mountainsSnowyBelow>-5</mountainsSnowyBelow>
-				<impassableSnowyBelow>0</impassableSnowyBelow>
+				<snowpilesBelow>999</snowpilesBelow>
+				<mountainsSnowyBelow>999</mountainsSnowyBelow>
+				<impassableSnowyBelow>999</impassableSnowyBelow>
 				<mountainsVerySnowyBelow>-12</mountainsVerySnowyBelow>
 				<impassableVerySnowyBelow>-5</impassableVerySnowyBelow>
 				<mountainsFullySnowyBelow>-21</mountainsFullySnowyBelow>
