@@ -8,4 +8,8 @@
 
 1.0.3 - 8/9/2025 - added Odyssey support
 
-1.0.4 - 8/10/2025 - tweaks to Odyssey textures
+1.0.4 - 8/31/2025 - tweaks to Odyssey textures, fixes to Glowforest textures (thanks Preston!)
+
+1.0.5 - 10/11/2025 - added enable/disable mod option and on-screen toggle for WMBP
+
+

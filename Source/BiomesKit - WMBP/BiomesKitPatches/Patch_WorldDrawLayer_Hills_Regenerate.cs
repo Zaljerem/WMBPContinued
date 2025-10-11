@@ -45,6 +45,11 @@ namespace BiomesKitPatches
 
         public static bool Prefix(WorldDrawLayer_Hills __instance, ref IEnumerable __result)
         {
+            if (!WMBPMod.settings.enabled || !WMBPMod.WorldBeautificationToggle)
+            {
+                return true; // use original WorldDrawLayer_Hills
+            }           
+
             __result = CustomRegenerate(__instance);
             return false; // skip original completely
         }
