@@ -12,4 +12,5 @@
 
 1.0.5 - 10/11/2025 - added enable/disable mod option and on-screen toggle for WMBP
 
+1.0.6 - 10/12/2025 - fix for submesh warning
 

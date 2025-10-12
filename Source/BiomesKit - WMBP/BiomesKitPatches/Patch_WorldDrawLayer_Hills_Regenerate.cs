@@ -58,6 +58,13 @@ namespace BiomesKitPatches
         {
             //Log.Message("[WMBP] Custom WorldDrawLayer_Hills.Regenerate");
 
+            // Clear existing submeshes before rebuilding
+            var clearSubMeshes = typeof(WorldDrawLayerBase).GetMethod(
+       "ClearSubMeshes",
+       BindingFlags.Instance | BindingFlags.NonPublic
+   );
+            clearSubMeshes.Invoke(instance, new object[] { MeshParts.All });
+
             Rand.PushState();
             Rand.Seed = Find.World.info.Seed;
             WorldGrid worldGrid = Find.WorldGrid;
