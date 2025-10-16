@@ -14,3 +14,4 @@
 
 1.0.6 - 10/12/2025 - fix for submesh warning
 
+1.0.7 - 10/15/2025 - fix to prevent attempt to render on non-planet layers (thanks Halicade!)

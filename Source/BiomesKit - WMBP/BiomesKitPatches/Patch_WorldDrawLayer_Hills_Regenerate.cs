@@ -1,5 +1,6 @@
 ﻿using BiomesKit;
 using HarmonyLib;
+using RimWorld;
 using RimWorld.Planet;
 using System.Collections;
 using System.Reflection;
@@ -48,7 +49,12 @@ namespace BiomesKitPatches
             if (!WMBPMod.settings.enabled || !WMBPMod.WorldBeautificationToggle)
             {
                 return true; // use original WorldDrawLayer_Hills
-            }           
+            }
+
+            if (__instance.planetLayer.Def != PlanetLayerDefOf.Surface)
+            {
+                return true; //Because other planet layers render incorrectly
+            }
 
             __result = CustomRegenerate(__instance);
             return false; // skip original completely
