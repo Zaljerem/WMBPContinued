@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <Patch>
+	<!--
+	For any modders creating Planet Layers, you will need to either MayRequire or patch the below into your worldDrawLayers
+	-->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/PlanetLayerDef[defName="Surface"]/worldDrawLayers</xpath>
+		<value>
+			<li>BiomesKit.WorldDrawLayer_Beautification</li>
+		</value>
+	</Operation>
+
 	<Operation Class="PatchOperationAddModExtension">
 		<xpath>/Defs/BiomeDef[defName = "TemperateForest"]</xpath>
 		<value>

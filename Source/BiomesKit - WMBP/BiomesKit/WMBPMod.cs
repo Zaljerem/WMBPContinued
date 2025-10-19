@@ -19,7 +19,9 @@ public class WMBPMod : Mod
         set
         {
             worldBeautificationToggle = value;
-            Find.World.renderer.SetDirty<WorldDrawLayer_Hills>(Find.WorldGrid.Surface);
+            foreach (PlanetLayer planetLayer in Find.WorldGrid.PlanetLayers.Values) {
+                planetLayer.WorldDrawLayers.Find(f => f.GetType() == typeof(WorldDrawLayer_Hills))?.SetDirty();
+            }
 
         }
     }
