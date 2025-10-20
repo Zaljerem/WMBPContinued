@@ -7,12 +7,12 @@ using BiomesKit;
 
 namespace BiomesKitPatches
 {
-    [HarmonyPatch(typeof(PlaySettings), nameof(PlaySettings.DoPlaySettingsGlobalControls))]
-    public static class Patch_PlaySettings_DoPlaySettingsGlobalControls
+    [HarmonyPatch(typeof(PlaySettings), "DoWorldViewControls")]
+    public static class Patch_PlaySettings_DoWorldViewControls
     {
-        public static void Postfix(WidgetRow row, bool worldView)
+        public static void Postfix(WidgetRow row)
         {
-            if (worldView is false || WMBPMod.settings.enabled is false)
+            if (!WMBPMod.settings.enabled)
             {
                 return;
             }
