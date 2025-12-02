@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using RimWorld;
 using RimWorld.Planet;
+using UnityEngine;
 using Verse;
 
 namespace BiomesKit;
@@ -10,12 +11,29 @@ public class BiomesKitControls : DefModExtension
 	public List<BiomeDef> spawnOnBiomes = new List<BiomeDef>();
 
 	public int? biomePriority;
-
+	
+	//field is unused
 	public string materialPath = "World/MapGraphics/Default";
 
 	public bool forested;
 
+	public Material Forest_Mat;
+
+	public Material Forest_SnowyMat;
+
+	public Material Forest_SparseMat;
+
+	public Material Forest_DenseMat;
+
 	public bool uniqueHills;
+
+	public Material SmallHillsMat;
+	
+	public Material LargeHillsMat;
+	
+	public Material MountainsMat;
+	
+	public Material ImpassableMat;
 
 	public float forestSnowyBelow = -9999f;
 
@@ -23,6 +41,7 @@ public class BiomesKitControls : DefModExtension
 
 	public float forestDenseAbove = 9999f;
 
+	//field is unused
 	public int materialLayer = 3515;
 
 	public float smallHillSizeMultiplier = 1.5f;
@@ -88,22 +107,42 @@ public class BiomesKitControls : DefModExtension
 	public BiomesKitHilliness? maxRandomHills = BiomesKitHilliness.Mountainous;
 
 	public float snowpilesBelow = -9999f;
+	
+	public Material SmallSnowpiles_Mat;
+	
+	public Material LargeSnowpiles_Mat;
 
 	public float mountainsSemiSnowyBelow = -9999f;
+	
+	public Material Mountains_SemiSnowy_Mat;
 
 	public float mountainsSnowyBelow = -9999f;
+	
+	public Material Mountains_Snowy_Mat;
 
 	public float mountainsVerySnowyBelow = -9999f;
+	
+	public Material Mountains_VerySnowy_Mat;
 
 	public float mountainsFullySnowyBelow = -9999f;
+	
+	public Material Mountains_FullySnowy_Mat;
 
 	public float impassableSemiSnowyBelow = -9999f;
+	
+	public Material Impassable_SemiSnowy_Mat;
 
 	public float impassableSnowyBelow = -9999f;
+	
+	public Material Impassable_Snowy_Mat;
 
 	public float impassableVerySnowyBelow = -9999f;
+	
+	public Material Impassable_VerySnowy_Mat;
 
 	public float impassableFullySnowyBelow = -9999f;
+	
+	public Material Impassable_FullySnowy_Mat;
 
 	public float minRainfall = -9999f;
 
