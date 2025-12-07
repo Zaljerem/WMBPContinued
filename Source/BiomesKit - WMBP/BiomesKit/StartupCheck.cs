@@ -86,43 +86,43 @@ public static class StartupCheck
 				                       GetDefaultMaterial("LargeHills");
 			}
 
-			if (GetHillTextureViable(modExt.snowpilesBelow)) {
-				modExt.SmallSnowpiles_Mat = TryGetMaterial(path, "SmallSnowpiles", true);
-				modExt.LargeSnowpiles_Mat = TryGetMaterial(path, "LargeSnowpiles", true);
+			if (GetTextureViable(modExt.snowpilesBelow)) {
+				modExt.SmallSnowpilesMat = TryGetMaterial(path, "SmallSnowpiles", true);
+				modExt.LargeSnowpilesMat = TryGetMaterial(path, "LargeSnowpiles", true);
 			}
 
 			if (CanHaveRegularHill(modExt.mountainsSnowyBelow)) {
 				modExt.MountainsMat = TryGetMaterial(path, "Mountains", true);
 			}
 
-			if (GetHillTextureViable(modExt.mountainsSnowyBelow))
-				modExt.Mountains_Snowy_Mat = TryGetMaterial(path, "Mountains_Snowy", true) ??
+			if (GetTextureViable(modExt.mountainsSnowyBelow))
+				modExt.Mountains_SnowyMat = TryGetMaterial(path, "Mountains_Snowy", true) ??
 				                             GetDefaultMaterial("Mountains");
-			if (GetHillTextureViable(modExt.mountainsFullySnowyBelow))
-				modExt.Mountains_FullySnowy_Mat = TryGetMaterial(path, "Mountains_FullySnowy", true) ??
+			if (GetTextureViable(modExt.mountainsFullySnowyBelow))
+				modExt.Mountains_FullySnowyMat = TryGetMaterial(path, "Mountains_FullySnowy", true) ??
 				                                  GetDefaultMaterial("Mountains");
-			if (GetHillTextureViable(modExt.mountainsVerySnowyBelow))
-				modExt.Mountains_VerySnowy_Mat = TryGetMaterial(path, "Mountains_VerySnowy", true) ??
+			if (GetTextureViable(modExt.mountainsVerySnowyBelow))
+				modExt.Mountains_VerySnowyMat = TryGetMaterial(path, "Mountains_VerySnowy", true) ??
 				                                 GetDefaultMaterial("Mountains");
-			if (GetHillTextureViable(modExt.mountainsSemiSnowyBelow))
-				modExt.Mountains_SemiSnowy_Mat = TryGetMaterial(path, "Mountains_SemiSnowy", true) ??
+			if (GetTextureViable(modExt.mountainsSemiSnowyBelow))
+				modExt.Mountains_SemiSnowyMat = TryGetMaterial(path, "Mountains_SemiSnowy", true) ??
 				                                 GetDefaultMaterial("Mountains");
 
 			if (CanHaveRegularHill(modExt.impassableSnowyBelow)) {
 				modExt.ImpassableMat = TryGetMaterial(path, "Impassable", true);
 			}
 
-			if (GetHillTextureViable(modExt.impassableSnowyBelow))
-				modExt.Impassable_Snowy_Mat = TryGetMaterial(path, "Impassable_Snowy", true) ??
+			if (GetTextureViable(modExt.impassableSnowyBelow))
+				modExt.Impassable_SnowyMat = TryGetMaterial(path, "Impassable_Snowy", true) ??
 				                              GetDefaultMaterial("Impassable");
-			if (GetHillTextureViable(modExt.impassableFullySnowyBelow))
-				modExt.Impassable_FullySnowy_Mat = TryGetMaterial(path, "Impassable_FullySnowy", true) ??
+			if (GetTextureViable(modExt.impassableFullySnowyBelow))
+				modExt.Impassable_FullySnowyMat = TryGetMaterial(path, "Impassable_FullySnowy", true) ??
 				                                   GetDefaultMaterial("Impassable");
-			if (GetHillTextureViable(modExt.impassableVerySnowyBelow))
-				modExt.Impassable_VerySnowy_Mat = TryGetMaterial(path, "Impassable_VerySnowy", true) ??
+			if (GetTextureViable(modExt.impassableVerySnowyBelow))
+				modExt.Impassable_VerySnowyMat = TryGetMaterial(path, "Impassable_VerySnowy", true) ??
 				                                  GetDefaultMaterial("Impassable");
-			if (GetHillTextureViable(modExt.impassableSemiSnowyBelow))
-				modExt.Impassable_SemiSnowy_Mat = TryGetMaterial(path, "Impassable_SemiSnowy", true) ??
+			if (GetTextureViable(modExt.impassableSemiSnowyBelow))
+				modExt.Impassable_SemiSnowyMat = TryGetMaterial(path, "Impassable_SemiSnowy", true) ??
 				                                  GetDefaultMaterial("Impassable");
 		}
 
@@ -130,11 +130,17 @@ public static class StartupCheck
 			string path = "WorldMaterials/BiomesKit/" + biomeDefName + "/Forest/Forest";
 			modExt.Forest_Mat = TryGetMaterial(path, "", false);
 
-			if (GetHillTextureViable(modExt.forestSnowyBelow)) {
+			if (GetTextureViable(modExt.forestSnowyBelow)) {
 				modExt.Forest_SnowyMat = TryGetMaterial(path, "_Snowy", false);
+				if (GetForestDenseTextureViable(modExt.forestDenseAbove)) {
+					modExt.Forest_SnowyDenseMat = TryGetMaterial(path, "_SnowyDense", false);
+				}
+				if (GetTextureViable(modExt.forestSparseBelow)) {
+					modExt.Forest_SnowySparseMat = TryGetMaterial(path, "_SnowySparse", false);
+				}
 			}
 
-			if (GetHillTextureViable(modExt.forestSparseBelow)) {
+			if (GetTextureViable(modExt.forestSparseBelow)) {
 				modExt.Forest_SparseMat = TryGetMaterial(path, "_Sparse", false);
 			}
 
@@ -150,7 +156,7 @@ public static class StartupCheck
 	/// Default value is -9999
 	/// </summary>
 	/// <returns>true if the texture should exist</returns>
-	private static bool GetHillTextureViable(float temperatureViable) {
+	private static bool GetTextureViable(float temperatureViable) {
 		return !Mathf.Approximately(temperatureViable, -9999f);
 	}
 

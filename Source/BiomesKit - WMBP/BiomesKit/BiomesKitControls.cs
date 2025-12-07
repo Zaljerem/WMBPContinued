@@ -12,18 +12,22 @@ public class BiomesKitControls : DefModExtension
 
 	public int? biomePriority;
 	
-	//field is unused
+	//field is not utilized in any mods
 	public string materialPath = "World/MapGraphics/Default";
 
 	public bool forested;
 
 	public Material Forest_Mat;
-
-	public Material Forest_SnowyMat;
-
+	
 	public Material Forest_SparseMat;
 
 	public Material Forest_DenseMat;
+
+	public Material Forest_SnowyMat;
+
+	public Material Forest_SnowySparseMat;
+	
+	public Material Forest_SnowyDenseMat;
 
 	public bool uniqueHills;
 
@@ -41,7 +45,7 @@ public class BiomesKitControls : DefModExtension
 
 	public float forestDenseAbove = 9999f;
 
-	//field is unused
+	//field is not utilized in any mods
 	public int materialLayer = 3515;
 
 	public float smallHillSizeMultiplier = 1.5f;
@@ -108,41 +112,41 @@ public class BiomesKitControls : DefModExtension
 
 	public float snowpilesBelow = -9999f;
 	
-	public Material SmallSnowpiles_Mat;
+	public Material SmallSnowpilesMat;
 	
-	public Material LargeSnowpiles_Mat;
+	public Material LargeSnowpilesMat;
 
 	public float mountainsSemiSnowyBelow = -9999f;
 	
-	public Material Mountains_SemiSnowy_Mat;
+	public Material Mountains_SemiSnowyMat;
 
 	public float mountainsSnowyBelow = -9999f;
 	
-	public Material Mountains_Snowy_Mat;
+	public Material Mountains_SnowyMat;
 
 	public float mountainsVerySnowyBelow = -9999f;
 	
-	public Material Mountains_VerySnowy_Mat;
+	public Material Mountains_VerySnowyMat;
 
 	public float mountainsFullySnowyBelow = -9999f;
 	
-	public Material Mountains_FullySnowy_Mat;
+	public Material Mountains_FullySnowyMat;
 
 	public float impassableSemiSnowyBelow = -9999f;
 	
-	public Material Impassable_SemiSnowy_Mat;
+	public Material Impassable_SemiSnowyMat;
 
 	public float impassableSnowyBelow = -9999f;
 	
-	public Material Impassable_Snowy_Mat;
+	public Material Impassable_SnowyMat;
 
 	public float impassableVerySnowyBelow = -9999f;
 	
-	public Material Impassable_VerySnowy_Mat;
+	public Material Impassable_VerySnowyMat;
 
 	public float impassableFullySnowyBelow = -9999f;
 	
-	public Material Impassable_FullySnowy_Mat;
+	public Material Impassable_FullySnowyMat;
 
 	public float minRainfall = -9999f;
 

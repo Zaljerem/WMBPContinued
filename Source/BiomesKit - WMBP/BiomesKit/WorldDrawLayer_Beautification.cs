@@ -58,12 +58,12 @@ public class WorldDrawLayer_Beautification : WorldDrawLayer
                                 break;
                             case Hilliness.SmallHills:
                                 hillMaterial = singleTile.temperature < modExt.snowpilesBelow
-                                    ? modExt.SmallSnowpiles_Mat
+                                    ? modExt.SmallSnowpilesMat
                                     : modExt.SmallHillsMat;
                                 break;
                             case Hilliness.LargeHills:
                                 hillMaterial = singleTile.temperature < modExt.snowpilesBelow
-                                    ? modExt.LargeSnowpiles_Mat
+                                    ? modExt.LargeSnowpilesMat
                                     : modExt.LargeHillsMat;
                                 break;
                             case Hilliness.Mountainous:
@@ -71,10 +71,10 @@ public class WorldDrawLayer_Beautification : WorldDrawLayer
                                     modExt.mountainsSnowyBelow, modExt.mountainsVerySnowyBelow,
                                     modExt.mountainsFullySnowyBelow) switch {
                                     0 => modExt.MountainsMat,
-                                    1 => modExt.Mountains_SemiSnowy_Mat,
-                                    2 => modExt.Mountains_Snowy_Mat,
-                                    3 => modExt.Mountains_VerySnowy_Mat,
-                                    4 => modExt.Mountains_FullySnowy_Mat,
+                                    1 => modExt.Mountains_SemiSnowyMat,
+                                    2 => modExt.Mountains_SnowyMat,
+                                    3 => modExt.Mountains_VerySnowyMat,
+                                    4 => modExt.Mountains_FullySnowyMat,
                                     _ => null
                                 };
                                 break;
@@ -83,10 +83,10 @@ public class WorldDrawLayer_Beautification : WorldDrawLayer
                                     modExt.impassableSnowyBelow, modExt.impassableVerySnowyBelow,
                                     modExt.impassableFullySnowyBelow) switch {
                                     0 => modExt.ImpassableMat,
-                                    1 => modExt.Impassable_SemiSnowy_Mat,
-                                    2 => modExt.Impassable_Snowy_Mat,
-                                    3 => modExt.Impassable_VerySnowy_Mat,
-                                    4 => modExt.Impassable_FullySnowy_Mat,
+                                    1 => modExt.Impassable_SemiSnowyMat,
+                                    2 => modExt.Impassable_SnowyMat,
+                                    3 => modExt.Impassable_VerySnowyMat,
+                                    4 => modExt.Impassable_FullySnowyMat,
                                     _ => null
                                 };
                                 break;
@@ -129,15 +129,23 @@ public class WorldDrawLayer_Beautification : WorldDrawLayer
                     if (modExt.forested && singleTile.hilliness == Hilliness.Flat) {
                         Material forestMaterial = modExt.Forest_Mat;
 
-                        if (singleTile.temperature < modExt.forestSnowyBelow) {
-                            forestMaterial = modExt.Forest_SnowyMat;
-                        }
-
                         if (singleTile.rainfall < modExt.forestSparseBelow) {
                             forestMaterial = modExt.Forest_SparseMat;
                         }
                         else if (singleTile.rainfall > modExt.forestDenseAbove) {
                             forestMaterial = modExt.Forest_DenseMat;
+                        }
+
+                        if (singleTile.temperature < modExt.forestSnowyBelow) {
+                            if (singleTile.rainfall < modExt.forestSparseBelow) {
+                                forestMaterial = modExt.Forest_SnowySparseMat;
+                            }
+                            else if (singleTile.rainfall > modExt.forestDenseAbove) {
+                                forestMaterial = modExt.Forest_SnowyDenseMat;
+                            }
+                            else {
+                                forestMaterial = modExt.Forest_SnowyMat;
+                            }
                         }
 
                         if (forestMaterial != null) {
