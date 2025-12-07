@@ -3,6 +3,10 @@
 <Patch>
 	<!--
 	For any modders creating Planet Layers, you will need to either MayRequire or patch the below into your worldDrawLayers
+	
+	For the planetLayer creator specifically, you should do as below to be compatible with wmbp and regrowth
+	<li MayRequire="regrowth.botr.core">ReGrowthCore.WorldDrawLayer_Beautification</li>
+	<li MayRequire="zal.wmbp">BiomesKit.WorldDrawLayer_Beautification</li>
 	-->
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/PlanetLayerDef[defName="Surface"]/worldDrawLayers</xpath>
