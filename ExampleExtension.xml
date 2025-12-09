@@ -73,7 +73,8 @@
                 Will display Hills/Mountains_Snowy.png if tile temperature is below mountainsSnowyBelow
                 Will display Hills/Mountains_VerySnowy.png if tile temperature is below mountainsVerySnowyBelow
                 Will display Hills/Mountains_FullySnowy.png if tile temperature is below mountainsFullySnowyBelow
-                Omit all mountains*Snowy fields to not apply
+                If you omit one of these, that texture will not be applied.
+				You can omit all of them, and you will not have to worry about the textures
                 -->
                 <mountainsSemiSnowyBelow>10</mountainsSemiSnowyBelow>
                 <mountainsSnowyBelow>-5</mountainsSnowyBelow>
@@ -86,7 +87,8 @@
                 Will display Hills/Impassable_Snowy.png if tile temperature is below ImpassableSnowyBelow
                 Will display Hills/Impassable_VerySnowy.png if tile temperature is below impassableVerySnowyBelow
                 Will display Hills/Impassable_FullySnowy.png if tile temperature is below impassableFullySnowyBelow
-                Omit all impassable*Snowy fields to not apply
+                If you omit one of these, that texture will not be applied.
+				You can omit all of them, and you will not have to worry about the textures
                 -->
                 <impassableSemiSnowyBelow>25</impassableSemiSnowyBelow>
                 <impassableSnowyBelow>0</impassableSnowyBelow>
