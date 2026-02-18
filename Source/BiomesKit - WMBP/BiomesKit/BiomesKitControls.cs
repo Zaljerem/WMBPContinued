@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using RimWorld;
 using RimWorld.Planet;
+using UnityEngine;
 using Verse;
 
 namespace BiomesKit;
@@ -10,12 +11,33 @@ public class BiomesKitControls : DefModExtension
 	public List<BiomeDef> spawnOnBiomes = new List<BiomeDef>();
 
 	public int? biomePriority;
-
+	
+	//field is not utilized in any mods
 	public string materialPath = "World/MapGraphics/Default";
 
 	public bool forested;
 
+	public Material Forest_Mat;
+	
+	public Material Forest_SparseMat;
+
+	public Material Forest_DenseMat;
+
+	public Material Forest_SnowyMat;
+
+	public Material Forest_SnowySparseMat;
+	
+	public Material Forest_SnowyDenseMat;
+
 	public bool uniqueHills;
+
+	public Material SmallHillsMat;
+	
+	public Material LargeHillsMat;
+	
+	public Material MountainsMat;
+	
+	public Material ImpassableMat;
 
 	public float forestSnowyBelow = -9999f;
 
@@ -23,6 +45,7 @@ public class BiomesKitControls : DefModExtension
 
 	public float forestDenseAbove = 9999f;
 
+	//field is not utilized in any mods
 	public int materialLayer = 3515;
 
 	public float smallHillSizeMultiplier = 1.5f;
@@ -88,22 +111,42 @@ public class BiomesKitControls : DefModExtension
 	public BiomesKitHilliness? maxRandomHills = BiomesKitHilliness.Mountainous;
 
 	public float snowpilesBelow = -9999f;
+	
+	public Material SmallSnowpilesMat;
+	
+	public Material LargeSnowpilesMat;
 
 	public float mountainsSemiSnowyBelow = -9999f;
+	
+	public Material Mountains_SemiSnowyMat;
 
 	public float mountainsSnowyBelow = -9999f;
+	
+	public Material Mountains_SnowyMat;
 
 	public float mountainsVerySnowyBelow = -9999f;
+	
+	public Material Mountains_VerySnowyMat;
 
 	public float mountainsFullySnowyBelow = -9999f;
+	
+	public Material Mountains_FullySnowyMat;
 
 	public float impassableSemiSnowyBelow = -9999f;
+	
+	public Material Impassable_SemiSnowyMat;
 
 	public float impassableSnowyBelow = -9999f;
+	
+	public Material Impassable_SnowyMat;
 
 	public float impassableVerySnowyBelow = -9999f;
+	
+	public Material Impassable_VerySnowyMat;
 
 	public float impassableFullySnowyBelow = -9999f;
+	
+	public Material Impassable_FullySnowyMat;
 
 	public float minRainfall = -9999f;
 

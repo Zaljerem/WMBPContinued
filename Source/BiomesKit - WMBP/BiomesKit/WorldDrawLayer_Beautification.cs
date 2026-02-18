@@ -47,76 +47,124 @@ public class WorldDrawLayer_Beautification : WorldDrawLayer
 
 
                 // --- Unique Hills ---
-                if (modExt.uniqueHills && noRoads && noRivers) {
-                    string path = "WorldMaterials/BiomesKit/" + singleTile.PrimaryBiome.defName + "/Hills/";
+                if (noRoads && noRivers) {
+                    if (modExt.uniqueHills) {
+                        Material hillMaterial = null;
 
 
-                    switch (singleTile.hilliness) {
-                        case Hilliness.Flat: path = null; break;
-                        case Hilliness.SmallHills:
-                            path += singleTile.temperature < modExt.snowpilesBelow ? "SmallSnowpiles" : "SmallHills";
-                            break;
-                        case Hilliness.LargeHills:
-                            path += singleTile.temperature < modExt.snowpilesBelow ? "LargeSnowpiles" : "LargeHills";
-                            break;
-                        case Hilliness.Mountainous:
-                            path += "Mountains" + SnowSuffix(singleTile.temperature, modExt.mountainsSemiSnowyBelow,
-                                modExt.mountainsSnowyBelow, modExt.mountainsVerySnowyBelow,
-                                modExt.mountainsFullySnowyBelow);
-                            break;
-                        case Hilliness.Impassable:
-                            path += "Impassable" + SnowSuffix(singleTile.temperature, modExt.impassableSemiSnowyBelow,
-                                modExt.impassableSnowyBelow, modExt.impassableVerySnowyBelow,
-                                modExt.impassableFullySnowyBelow);
-                            break;
+                        switch (singleTile.hilliness) {
+                            case Hilliness.Flat:
+                                hillMaterial = null;
+                                break;
+                            case Hilliness.SmallHills:
+                                hillMaterial = singleTile.temperature < modExt.snowpilesBelow
+                                    ? modExt.SmallSnowpilesMat
+                                    : modExt.SmallHillsMat;
+                                break;
+                            case Hilliness.LargeHills:
+                                hillMaterial = singleTile.temperature < modExt.snowpilesBelow
+                                    ? modExt.LargeSnowpilesMat
+                                    : modExt.LargeHillsMat;
+                                break;
+                            case Hilliness.Mountainous:
+                                hillMaterial = SnowSuffix(singleTile.temperature, modExt.mountainsSemiSnowyBelow,
+                                    modExt.mountainsSnowyBelow, modExt.mountainsVerySnowyBelow,
+                                    modExt.mountainsFullySnowyBelow) switch {
+                                    0 => modExt.MountainsMat,
+                                    1 => modExt.Mountains_SemiSnowyMat,
+                                    2 => modExt.Mountains_SnowyMat,
+                                    3 => modExt.Mountains_VerySnowyMat,
+                                    4 => modExt.Mountains_FullySnowyMat,
+                                    _ => null
+                                };
+                                break;
+                            case Hilliness.Impassable:
+                                hillMaterial = SnowSuffix(singleTile.temperature, modExt.impassableSemiSnowyBelow,
+                                    modExt.impassableSnowyBelow, modExt.impassableVerySnowyBelow,
+                                    modExt.impassableFullySnowyBelow) switch {
+                                    0 => modExt.ImpassableMat,
+                                    1 => modExt.Impassable_SemiSnowyMat,
+                                    2 => modExt.Impassable_SnowyMat,
+                                    3 => modExt.Impassable_VerySnowyMat,
+                                    4 => modExt.Impassable_FullySnowyMat,
+                                    _ => null
+                                };
+                                break;
+                        }
+
+                        if (hillMaterial != null) {
+                            var subMesh = GetSubMesh(hillMaterial);
+
+                            WorldRendererUtility.PrintQuadTangentialToPlanet(tileCenter, tileCenter,
+                                singleTile.Layer.AverageTileSize * modExt.materialSizeMultiplier, 0.005f, subMesh,
+                                false,
+                                0.01f, false);
+                            WorldRendererUtility.PrintTextureAtlasUVs(Rand.Range(0, 2), Rand.Range(0, 2), 2, 2,
+                                subMesh);
+                        }
+                    }
+                    else {
+                        string hillPath = singleTile.hilliness switch {
+                            Hilliness.SmallHills => "WorldMaterials/BiomesKit/Default/Hills/SmallHills",
+                            Hilliness.LargeHills => "WorldMaterials/BiomesKit/Default/Hills/LargeHills",
+                            Hilliness.Mountainous => "WorldMaterials/BiomesKit/Default/Hills/Mountains",
+                            Hilliness.Impassable => "WorldMaterials/BiomesKit/Default/Hills/Impassable",
+                            _ => null
+                        };
+
+                        if (hillPath != null) {
+                            Material mat = MaterialPool.MatFrom(hillPath, ShaderDatabase.WorldOverlayTransparentLit,
+                                3515);
+                            var subMesh = GetSubMesh(mat);
+                            WorldRendererUtility.PrintQuadTangentialToPlanet(tileCenter, tileCenter,
+                                singleTile.Layer.AverageTileSize, 0.005f, subMesh, false, Rand.Range(0f, 360f),
+                                false);
+                            WorldRendererUtility.PrintTextureAtlasUVs(Rand.Range(0, 2), Rand.Range(0, 2), 2, 2,
+                                subMesh);
+                        }
                     }
 
-                    if (path != null) {
-                        Material mat = MaterialPool.MatFrom(path, ShaderDatabase.WorldOverlayTransparentLit, 3600);
-                        var subMesh = GetSubMesh(mat);
 
-                        WorldRendererUtility.PrintQuadTangentialToPlanet(tileCenter, tileCenter,
-                            singleTile.Layer.AverageTileSize * modExt.materialSizeMultiplier, 0.005f, subMesh, false,
-                            0.01f, false);
-                        WorldRendererUtility.PrintTextureAtlasUVs(Rand.Range(0, 2), Rand.Range(0, 2), 2, 2, subMesh);
+                    // --- Forested Plains ---
+                    if (modExt.forested && singleTile.hilliness == Hilliness.Flat) {
+                        Material forestMaterial = modExt.Forest_Mat;
+
+                        if (singleTile.rainfall < modExt.forestSparseBelow) {
+                            forestMaterial = modExt.Forest_SparseMat;
+                        }
+                        else if (singleTile.rainfall > modExt.forestDenseAbove) {
+                            forestMaterial = modExt.Forest_DenseMat;
+                        }
+
+                        if (singleTile.temperature < modExt.forestSnowyBelow) {
+                            if (singleTile.rainfall < modExt.forestSparseBelow) {
+                                forestMaterial = modExt.Forest_SnowySparseMat;
+                            }
+                            else if (singleTile.rainfall > modExt.forestDenseAbove) {
+                                forestMaterial = modExt.Forest_SnowyDenseMat;
+                            }
+                            else {
+                                forestMaterial = modExt.Forest_SnowyMat;
+                            }
+                        }
+
+                        if (forestMaterial != null) {
+                            var subMesh = GetSubMesh(forestMaterial);
+                            WorldRendererUtility.PrintQuadTangentialToPlanet(tileCenter, tileCenter,
+                                singleTile.Layer.AverageTileSize * modExt.materialSizeMultiplier, 0.005f, subMesh,
+                                false,
+                                0.01f,
+                                false);
+                            WorldRendererUtility.PrintTextureAtlasUVs(Rand.Range(0, 2), Rand.Range(0, 2), 2, 2,
+                                subMesh);
+                        }
                     }
-                }
-
-                // --- Forested Plains ---
-                if (modExt.forested && singleTile.hilliness == Hilliness.Flat && noRoads && noRivers) {
-                    string path = "WorldMaterials/BiomesKit/" + singleTile.PrimaryBiome.defName + "/Forest/Forest_";
-                    bool modified = false;
-
-                    if (singleTile.temperature < modExt.forestSnowyBelow) {
-                        path += "Snowy";
-                        modified = true;
-                    }
-
-                    if (singleTile.rainfall < modExt.forestSparseBelow) {
-                        path += "Sparse";
-                        modified = true;
-                    }
-                    else if (singleTile.rainfall > modExt.forestDenseAbove) {
-                        path += "Dense";
-                        modified = true;
-                    }
-
-                    if (!modified)
-                        path = path.TrimEnd('_');
-
-                    Material mat = MaterialPool.MatFrom(path, ShaderDatabase.WorldOverlayTransparentLit,
-                        modExt.materialLayer);
-                    var subMesh = GetSubMesh(mat);
-                    WorldRendererUtility.PrintQuadTangentialToPlanet(tileCenter, tileCenter,
-                        singleTile.Layer.AverageTileSize * modExt.materialSizeMultiplier, 0.005f, subMesh, false, 0.01f,
-                        false);
-                    WorldRendererUtility.PrintTextureAtlasUVs(Rand.Range(0, 2), Rand.Range(0, 2), 2, 2, subMesh);
                 }
 
                 // --- Custom Material Overlay ---
                 if (modExt.materialPath != "World/MapGraphics/Default") {
                     Material mat = MaterialPool.MatFrom(modExt.materialPath, ShaderDatabase.WorldOverlayTransparentLit,
-                        modExt.materialLayer);
+                        3515);
                     var subMesh = GetSubMesh(mat);
                     WorldRendererUtility.PrintQuadTangentialToPlanet(tileCenter, tileCenter,
                         singleTile.Layer.AverageTileSize * modExt.materialSizeMultiplier, 0.005f, subMesh, false, 0.01f,
@@ -127,22 +175,14 @@ public class WorldDrawLayer_Beautification : WorldDrawLayer
             else if (WMBPMod.settings.displayDefault) {
                 //Fallback for if biome does not have any textures.
                 //Will revert to base game graphics
-                //Setting Disabled by default
-                string hillPath = null;
-                switch (singleTile.hilliness) {
-                    case Hilliness.SmallHills:
-                        hillPath = "WorldMaterials/BiomesKit/Default/Hills/SmallHills";
-                        break;
-                    case Hilliness.LargeHills:
-                        hillPath = "WorldMaterials/BiomesKit/Default/Hills/LargeHills";
-                        break;
-                    case Hilliness.Mountainous:
-                        hillPath = "WorldMaterials/BiomesKit/Default/Hills/Mountains";
-                        break;
-                    case Hilliness.Impassable:
-                        hillPath = "WorldMaterials/BiomesKit/Default/Hills/Impassable";
-                        break;
-                }
+                //Setting Enabled by default
+                string hillPath = singleTile.hilliness switch {
+                    Hilliness.SmallHills => "WorldMaterials/BiomesKit/Default/Hills/SmallHills",
+                    Hilliness.LargeHills => "WorldMaterials/BiomesKit/Default/Hills/LargeHills",
+                    Hilliness.Mountainous => "WorldMaterials/BiomesKit/Default/Hills/Mountains",
+                    Hilliness.Impassable => "WorldMaterials/BiomesKit/Default/Hills/Impassable",
+                    _ => null
+                };
 
                 if (hillPath != null) {
                     Material mat = MaterialPool.MatFrom(hillPath, ShaderDatabase.WorldOverlayTransparentLit,
@@ -163,11 +203,11 @@ public class WorldDrawLayer_Beautification : WorldDrawLayer
     }
 
 
-    private static string SnowSuffix(float temp, float semi, float snowy, float verySnowy, float fullySnowy) {
-        if (temp < fullySnowy) return "_FullySnowy";
-        if (temp < verySnowy) return "_VerySnowy";
-        if (temp < snowy) return "_Snowy";
-        if (temp < semi) return "_SemiSnowy";
-        return "";
+    private static int SnowSuffix(float temp, float semi, float snowy, float verySnowy, float fullySnowy) {
+        if (temp < fullySnowy) return 4;
+        if (temp < verySnowy) return 3;
+        if (temp < snowy) return 2;
+        if (temp < semi) return 1;
+        return 0;
     }
 }
